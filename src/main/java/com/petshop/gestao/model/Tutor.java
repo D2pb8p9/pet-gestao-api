@@ -1,17 +1,14 @@
 package com.petshop.gestao.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,7 +18,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.data.annotation.Id;
 
 @Getter
 @Setter
@@ -48,19 +44,17 @@ public class Tutor {
     private String email;
 
     @OneToOne
-    @JoinColumn(name = "tutor_id")
-    @Embedded
+    @JoinColumn(name = "endereco_id")
     private Endereco endereco;
 
-    @OneToMany
-    @JoinColumn(name = "pet_id")
-    private List<Pet> pet;
+    @OneToMany(mappedBy = "tutor")
+    private List<Pet> pets;
 
     @CreationTimestamp
-    private Date dataCadastro;
+    private LocalDate dataCadastro;
 
     @UpdateTimestamp
-    private Date dataAtualizacao;
+    private LocalDate dataAtualizacao;
 
-    private Boolean isAtivo;
+    private Boolean isAtivo = true;
 }
